@@ -1,0 +1,50 @@
+package utils;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SQLConexion {
+	
+	public static Connection getConexion(){
+		Connection con = null;
+		try{
+			Class.forName("com.mysql.jdbc.Driver"); //instanciamiento de la clase del driver
+		
+		String url= "jdbc:mysql://localhost:3307/ciberfarma";//variable String que contiene los datos del servidor
+		String usr= "sa";		
+		String psw= "sql";
+		
+		con = DriverManager.getConnection(url,usr,psw);// con este método se establece la conexión con el servidor
+		
+		} catch(ClassNotFoundException e) {
+		System.out.println("Error >> Driver no Instalado!!");
+		} catch(SQLException e) {
+		System.out.println("Error >> de conexión con la BD");
+		}
+		return con;
+		}
+	
+	public static void closeConexion(Connection con){
+		
+		try {
+			con.close();//Sentencia para cerrar la conexión
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Problemas al cerrar la conexion");
+		}
+	}
+	
+	public static void closeStatement(Statement stmt){
+		
+		try {
+			stmt.close();// sentencia para cerrar el statement
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Problemas al cerrar el statement");
+		}
+	}
+	
+
+}
